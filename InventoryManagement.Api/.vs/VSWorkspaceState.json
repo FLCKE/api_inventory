@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\CLI",
+    "\\Controllers",
+    "\\Models",
+    "\\Repositories"
+  ],
+  "SelectedNode": "\\Repositories\\InventoryRepository.cs",
+  "PreviewInSolutionExplorer": false
+}

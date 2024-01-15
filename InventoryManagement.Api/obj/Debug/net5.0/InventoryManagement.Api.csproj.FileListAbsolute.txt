@@ -1,0 +1,5 @@
+/Users/macbook/Desktop/InventoryManagementApp/Gestion-Inventory_Stock/InventoryManagement.Api/obj/Debug/net5.0/InventoryManagement.Api.csproj.AssemblyReference.cache
+/Users/macbook/Desktop/InventoryManagementApp/Gestion-Inventory_Stock/InventoryManagement.Api/obj/Debug/net5.0/InventoryManagement.Api.GeneratedMSBuildEditorConfig.editorconfig
+/Users/macbook/Desktop/InventoryManagementApp/Gestion-Inventory_Stock/InventoryManagement.Api/obj/Debug/net5.0/InventoryManagement.Api.AssemblyInfoInputs.cache
+/Users/macbook/Desktop/InventoryManagementApp/Gestion-Inventory_Stock/InventoryManagement.Api/obj/Debug/net5.0/InventoryManagement.Api.AssemblyInfo.cs
+/Users/macbook/Desktop/InventoryManagementApp/Gestion-Inventory_Stock/InventoryManagement.Api/obj/Debug/net5.0/InventoryManagement.Api.csproj.CoreCompileInputs.cache
