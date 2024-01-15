@@ -8,11 +8,11 @@ using InventoryManagement.Api.Models;
 namespace InventoryManagement.Api.Repositories
 {
     public class InventoryRepository
-    { 
-// Chaîne de connexion pour la base de données  MYSQL
-        private string connectionString = "Server=127.0.0.1;Database=boutique;User Id=root;Password=;";
+    {
+        // Chaîne de connexion pour la base de données  MYSQL
+        private string connectionString = "Server=192.168.184.133;Database=your_database;User Id=your_user;Password=your_password;";
 
-// Teste de manière asynchrone la connexion à la base de données
+        // Teste de manière asynchrone la connexion à la base de données
         public async Task<bool> TestDatabaseConnectionAsync()
         {
             try
@@ -67,14 +67,14 @@ namespace InventoryManagement.Api.Repositories
             }
             catch (MySqlException ex)
             {
-      // Gérer les exceptions liées à la récupération des éléments de la base de données
+                // Gérer les exceptions liées à la récupération des éléments de la base de données
 
                 HandleDatabaseException(ex, "Error fetching items from the database.");
             }
 
             return items;
         }
-        
+
         public async Task<InventoryItem?> GetItemByIdAsync(int id)
         {
             try
@@ -127,7 +127,7 @@ namespace InventoryManagement.Api.Repositories
                         // Définir les paramètres du nouvel élément
                         AddInventoryItemParameters(command, item);
 
-                        
+
                         int insertedId = Convert.ToInt32(await command.ExecuteScalarAsync());
                         return insertedId;
                     }
@@ -135,12 +135,12 @@ namespace InventoryManagement.Api.Repositories
             }
             catch (MySqlException ex)
             {
-       // Gérer les exceptions liées à l'ajout d'un élément à la base de données
+                // Gérer les exceptions liées à l'ajout d'un élément à la base de données
                 HandleDatabaseException(ex, "Error adding item to the database.");
                 return null;
             }
         }
-        
+
         public async Task UpdateItemAsync(InventoryItem item)
         {
             try
@@ -150,10 +150,10 @@ namespace InventoryManagement.Api.Repositories
                     await connection.OpenAsync();
 
                     //executer la requete update pour mettre a jour les elements dans la table product
-                    
+
                     using (MySqlCommand command = new MySqlCommand("UPDATE product SET product_name = @product_name, description = @description, price = @price, category = @category, stock_quantity = @stock_quantity WHERE product_id = @product_id", connection))
                     {
-  // Définir les paramètres de l'élément mis à jour
+                        // Définir les paramètres de l'élément mis à jour
                         command.Parameters.AddWithValue("@product_id", item.product_id);
                         AddInventoryItemParameters(command, item);
 
@@ -164,25 +164,25 @@ namespace InventoryManagement.Api.Repositories
             }
             catch (MySqlException ex)
             {
-// Gérer les exceptions liées à la mise à jour d'un élément dans la base de données
-                
+                // Gérer les exceptions liées à la mise à jour d'un élément dans la base de données
+
                 HandleDatabaseException(ex, "Error updating item in the database.");
             }
         }
-        
+
         public async Task DeleteItemAsync(int id)
         {
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-           // Ouvrir la connexion à la base de données
+                    // Ouvrir la connexion à la base de données
                     await connection.OpenAsync();
 
-// Exécute une requête DELETE pour supprimer un élément de la table 'product'
+                    // Exécute une requête DELETE pour supprimer un élément de la table 'product'
                     using (MySqlCommand command = new MySqlCommand("DELETE FROM product WHERE product_id = @product_id", connection))
                     {
-// Définir le paramètre pour l'élément à supprimer
+                        // Définir le paramètre pour l'élément à supprimer
                         command.Parameters.AddWithValue("@product_id", id);
 
                         // Execute the query
@@ -192,7 +192,7 @@ namespace InventoryManagement.Api.Repositories
             }
             catch (MySqlException ex)
             {
-// Gérer les exceptions liées à la suppression d'un élément de la base de données
+                // Gérer les exceptions liées à la suppression d'un élément de la base de données
                 HandleDatabaseException(ex, "Error deleting item from the database.");
             }
         }
@@ -201,7 +201,7 @@ namespace InventoryManagement.Api.Repositories
         //garantissant que les données extraites sont correctement converties et organisées en une représentation d'objet structurée.
         private InventoryItem MapInventoryItem(MySqlDataReader reader)
         {
-           
+
             return new InventoryItem
             {
                 product_id = Convert.ToInt32(reader["product_id"]),
@@ -214,7 +214,7 @@ namespace InventoryManagement.Api.Repositories
         }
 
 
-        
+
 
         //definit les parametres pour l'ajout ou mise a jour d'un InventoryItem
         private void AddInventoryItemParameters(MySqlCommand command, InventoryItem item)

@@ -10,7 +10,7 @@ namespace InventoryManagement.Api.Repositories
 {
     class UserRepository
     {
-        private string connectionString = "Server=127.0.0.1;Database=boutique;User Id=root;Password=;";
+        private string connectionString = "Server=192.168.184.133;Database=your_database;User Id=your_user;Password=your_password;";
 
         //test Asynchronous pour la connexion avec la bdd
         public async Task<bool> TestDatabaseConnectionAsync()
@@ -40,9 +40,9 @@ namespace InventoryManagement.Api.Repositories
         }
 
 
-//récupère efficacement toutes les informations relatives à l'utilisateur à partir 
-//d'une base de données MySQL, en veillant à ce que les opérations de base de données
-// soient traitées de manière asynchrone et que les exceptions soient correctement gérées.
+        //récupère efficacement toutes les informations relatives à l'utilisateur à partir 
+        //d'une base de données MySQL, en veillant à ce que les opérations de base de données
+        // soient traitées de manière asynchrone et que les exceptions soient correctement gérées.
 
 
         public async Task<List<UserItem>> GetAllUserAsync()
@@ -60,7 +60,7 @@ namespace InventoryManagement.Api.Repositories
                     using (MySqlCommand command = new MySqlCommand("SELECT * FROM user", connection))
                     using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                     {
-// Lire chaque ligne et l'associer user
+                        // Lire chaque ligne et l'associer user
 
                         while (await reader.ReadAsync())
                         {
@@ -72,7 +72,7 @@ namespace InventoryManagement.Api.Repositories
             }
             catch (MySqlException ex)
             {
-// Gérer les exceptions liées à l'extraction d'éléments de la base de données
+                // Gérer les exceptions liées à l'extraction d'éléments de la base de données
 
                 HandleDatabaseException(ex, "Error fetching items from the database.");
             }
@@ -101,7 +101,7 @@ namespace InventoryManagement.Api.Repositories
 
                         using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                         {
-              // Si un élément correspondant est trouvé, le mapper à un utilisateur
+                            // Si un élément correspondant est trouvé, le mapper à un utilisateur
 
                             if (await reader.ReadAsync())
                             {
@@ -143,7 +143,7 @@ namespace InventoryManagement.Api.Repositories
 
                         using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                         {
-// Si un élément correspondant est trouvé, le mapper à un user
+                            // Si un élément correspondant est trouvé, le mapper à un user
                             while (reader.Read())
                             {
                                 Console.WriteLine(reader.GetString(0));
@@ -158,7 +158,7 @@ namespace InventoryManagement.Api.Repositories
             }
             catch (MySqlException ex)
             {
-// Gérer les exceptions liées à l'extraction d'un user de la base de données par son identifiant.
+                // Gérer les exceptions liées à l'extraction d'un user de la base de données par son identifiant.
 
 
                 HandleDatabaseException(ex, "Error fetching item by ID from the database.");
@@ -168,8 +168,8 @@ namespace InventoryManagement.Api.Repositories
         }
 
 
-// ce code ajoute effectivement un nouvel utilisateur à la base de données MySQL, en veillant à ce que les opérations de la base 
-//de données soient traitées de manière asynchrone et que les exceptions soient correctement gérées.
+        // ce code ajoute effectivement un nouvel utilisateur à la base de données MySQL, en veillant à ce que les opérations de la base 
+        //de données soient traitées de manière asynchrone et que les exceptions soient correctement gérées.
 
         public async Task<int?> AddUserItemAsync(UserItem item)
         {
@@ -183,12 +183,12 @@ namespace InventoryManagement.Api.Repositories
                     //execution requet  insert pour ahouter a nouveau user
                     using (MySqlCommand command = new MySqlCommand("INSERT INTO user ( username, password, email, first_name, last_name, phone_number, registration_date) VALUES (@username, @password, @email, @first_name, @last_name, @phone_number, @registration_date); SELECT LAST_INSERT_ID();", connection))
                     {
-            // Définit les paramètres du nouvel élément
+                        // Définit les paramètres du nouvel élément
 
                         AddUserItemParameters(command, item);
                         command.Parameters.AddWithValue("@registration_date", DateTime.Now);
 
-                        
+
 
                         int insertedId = Convert.ToInt32(await command.ExecuteScalarAsync());
                         return insertedId;
@@ -224,8 +224,8 @@ namespace InventoryManagement.Api.Repositories
                         command.Parameters.AddWithValue("@user_id", item.user_id);
                         AddUserItemParameters(command, item);
 
-    // Exécuter la requête       
-                     await command.ExecuteNonQueryAsync();
+                        // Exécuter la requête       
+                        await command.ExecuteNonQueryAsync();
                         Console.WriteLine("ghhkjkhg");
                     }
                 }
@@ -253,7 +253,7 @@ namespace InventoryManagement.Api.Repositories
                     //execution de la requet delete pour retirer des users dans la table
                     using (MySqlCommand command = new MySqlCommand("DELETE FROM user WHERE user_id = @user_id", connection))
                     {
-             // Définir le paramètre de l'élément à supprimer
+                        // Définir le paramètre de l'élément à supprimer
                         command.Parameters.AddWithValue("@user_id", id);
 
                         // execution de la requet 
